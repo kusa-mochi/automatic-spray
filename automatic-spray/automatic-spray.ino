@@ -2,21 +2,26 @@
 #define loopInterval 100  // loop関数のループ間隔[msec]
 #define echoPin 2
 #define trigPin 4
-#define servoPin 3
+#define servoPin1 3
+#define servoPin2 5
 #define sonicSpeed 340 // 音速[m/sec]
 #define switchDistance 10.0 // サーボモータの角度のON/OFFを切り替える基準とする距離[cm]
-#define servoOnDegree 1 // サーボモータONのときの角度[deg]
-#define servoOffDegree 0  // サーボモータOFFのときの角度[deg]
+#define servo1OnDegree 0 // サーボモータONのときの角度[deg] 0
+#define servo1OffDegree 180  // サーボモータOFFのときの角度[deg] 180
+#define servo2OnDegree 180 // サーボモータONのときの角度[deg] 180
+#define servo2OffDegree 0  // サーボモータOFFのときの角度[deg] 0
 
 double duration = 0; //受信した間隔
 double distance = 0; //距離
-Servo gripServo;
+Servo gripServo1;
+Servo gripServo2;
 
 void setup() {
   Serial.begin( 9600 );
   pinMode( echoPin, INPUT );
   pinMode( trigPin, OUTPUT );
-  gripServo.attach(servoPin);
+  gripServo1.attach(servoPin1);
+  gripServo2.attach(servoPin2);
 }
 
 void loop() {
@@ -34,9 +39,11 @@ void loop() {
 
     // 距離が<switchDistance>cm未満である場合
     if (distance < switchDistance) {
-      gripServo.write(servoOnDegree);
+      gripServo1.write(servo1OnDegree);
+      gripServo2.write(servo2OnDegree);
     } else {
-      gripServo.write(servoOffDegree);
+      gripServo1.write(servo1OffDegree);
+      gripServo2.write(servo2OffDegree);
     }
   }
   delay(loopInterval);
