@@ -1,2 +1,2 @@
 # automatic-spray
-automatic alcohol spray program for an arduino.
+automatic alcohol spray program for Arduino Uno.
